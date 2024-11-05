@@ -9,12 +9,24 @@ const Button = styled.button`
   padding: 4px 10px;
   transition: all 0.3s linear;
 
-  &:hover {
-    opacity: 0.8;
-  }
-  &:active {
-    box-shadow: inset 0 0 0 100px rgba(0,0,0,0.2), 0 0 4px 1px rgba(0,0,0,0.2);
-  }
+  ${({ disabled }) =>
+    !disabled &&
+    `
+    &:hover {
+      opacity: 0.8;
+    }
+    &:active {
+      box-shadow: inset 0 0 0 100px rgba(0,0,0,0.2), 0 0 4px 1px rgba(0,0,0,0.2);
+    }
+  `}
+
+
+  ${({ disabled }) =>
+    disabled &&
+    `
+    opacity: 0.5;
+    cursor: default;
+  `}
 `;
 
 const ButtonDanger = styled(Button)`

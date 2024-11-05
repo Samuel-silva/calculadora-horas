@@ -27,21 +27,25 @@ export default function Calculator() {
   }
 
   const addInput = () => {
-    setEntryHoursValues([...entryHoursValues, ''])
-    setLeaveHoursValues([...leaveHoursValues, ''])
-    setCountHoursValues([...countHoursValues, ''])
+    if (entryHoursValues.length < 5) {
+      setEntryHoursValues([...entryHoursValues, ''])
+      setLeaveHoursValues([...leaveHoursValues, ''])
+      setCountHoursValues([...countHoursValues, ''])
+    }
   }
 
   const removeInput = () => {
-    const newEntry = [...entryHoursValues]
-    const newLeave = [...leaveHoursValues]
-    const newCount = [...countHoursValues]
-    newEntry.pop()
-    newLeave.pop()
-    newCount.pop()
-    setEntryHoursValues(newEntry)
-    setLeaveHoursValues(newLeave)
-    setCountHoursValues(newCount)
+    if (entryHoursValues.length > 1) {
+      const newEntry = [...entryHoursValues]
+      const newLeave = [...leaveHoursValues]
+      const newCount = [...countHoursValues]
+      newEntry.pop()
+      newLeave.pop()
+      newCount.pop()
+      setEntryHoursValues(newEntry)
+      setLeaveHoursValues(newLeave)
+      setCountHoursValues(newCount)
+    }
   };
 
   const handleSubmit = () => {
@@ -88,6 +92,9 @@ export default function Calculator() {
     return `${String(horas).padStart(2, '0')}:${String(minutosRestantes).padStart(2, '0')}`;
   }
 
+  const disabledAdd = () => entryHoursValues.length > 4
+  const disabledRemove = () => entryHoursValues.length < 2
+
   return (
     <>
       <Container>
@@ -131,10 +138,10 @@ export default function Calculator() {
             ))}
           </div>
         </div>
-        <p>{totalHoursValues}</p>
-        <ButtonSuccess onClick={addInput}>Adicionar intervalo</ButtonSuccess>
-        <ButtonDanger className="ml-2" onClick={removeInput}>Remover intervalo</ButtonDanger>
-        <Button className="ml-2" onClick={handleSubmit}>Calcular</Button>
+        <p className="text-2xl pb-4">Total de horas: {totalHoursValues}</p>
+        <Button onClick={handleSubmit}>Calcular</Button>
+        <ButtonSuccess disabled={disabledAdd()} className="ml-2" onClick={addInput}>Adicionar intervalo</ButtonSuccess>
+        <ButtonDanger disabled={disabledRemove()} className="ml-2" onClick={removeInput}>Remover intervalo</ButtonDanger>
       </Container>
     </>
   );
