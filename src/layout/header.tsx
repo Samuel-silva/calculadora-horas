@@ -1,7 +1,7 @@
 import Head from "next/head"
 import {
   Container
-} from "components/sharedstyles";
+} from "styles/sharedstyles";
 
 export default function Header() {
   return (

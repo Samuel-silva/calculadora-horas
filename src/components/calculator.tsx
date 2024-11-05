@@ -1,6 +1,6 @@
 import {
   Container
-} from "components/sharedstyles"
+} from "styles/sharedstyles"
 import { useState } from "react";
 
 export default function Calculator() {
