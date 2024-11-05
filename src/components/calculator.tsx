@@ -1,12 +1,17 @@
 import {
   Container
 } from "styles/sharedstyles"
+import {
+  Button,
+  ButtonDanger,
+  ButtonSuccess
+} from "styles/buttons"
 import { useState } from "react";
 
 export default function Calculator() {
-  const [entryHoursValues, setEntryHoursValues] = useState<string[]>([''])
-  const [leaveHoursValues, setLeaveHoursValues] = useState<string[]>([''])
-  const [countHoursValues, setCountHoursValues] = useState<string[]>([''])
+  const [entryHoursValues, setEntryHoursValues] = useState<string[]>(['', ''])
+  const [leaveHoursValues, setLeaveHoursValues] = useState<string[]>(['', ''])
+  const [countHoursValues, setCountHoursValues] = useState<string[]>(['', ''])
   const [totalHoursValues, setTotalHoursValues] = useState<string>('')
 
   const handleEntryChange = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,46 +91,50 @@ export default function Calculator() {
   return (
     <>
       <Container>
-        <p>Intervalos</p>
-        <div className="flex">
+        <p className="text-2xl py-4">Intervalos</p>
+        <div className="flex pb-4">
           <div className="flex flex-col">
             {entryHoursValues.map((value, index) => (
-              <div key={`label-${index}`} className="flex">
-                <p key={`text-${index}`}>Intervalo:</p>
-                <input
-                  key={`entry-${index}`}
-                  type="time"
-                  value={value}
-                  onChange={handleEntryChange(index)}
-                />
+              <div key={`label-${index}`} className="flex h-10 items-center">
+                <p key={`text-${index}`} className="w-24 text-lg">Intervalo {index + 1}:</p>
+
+                <div className="mx-1">
+                  <input
+                    className="border border-solid border-gray-500 rounded px-1 w-24"
+                    key={`entry-${index}`}
+                    onChange={handleEntryChange(index)}
+                    type="time"
+                    value={value}
+                  />
+                </div>
+
+                <div className="mx-1">
+                  <input
+                    className="border border-solid border-gray-500 rounded px-1 w-24"
+                    key={`leave-${index}`}
+                    onChange={handleLeaveChange(index)}
+                    type="time"
+                    value={leaveHoursValues[index]}
+                  />
+                </div>
+                <div className="mx-1">
+                  <input
+                    className={`px-0.5 w-24 bg-white ${countHoursValues[index] ? "visible" : "invisible"}`}
+                    disabled
+                    key={`count-${index}`}
+                    readOnly
+                    type="time"
+                    value={countHoursValues[index]}
+                  />
+                </div>
               </div>
-            ))}
-          </div>
-          <div className="flex flex-col">
-            {leaveHoursValues.map((value, index) => (
-              <input
-                key={`leave-${index}`}
-                type="time"
-                value={value}
-                onChange={handleLeaveChange(index)}
-              />
-            ))}
-          </div>
-          <div className="flex flex-col">
-            {countHoursValues.map((value, index) => (
-              <input
-                key={`count-${index}`}
-                type="time"
-                value={value}
-                readOnly
-              />
             ))}
           </div>
         </div>
         <p>{totalHoursValues}</p>
-        <button onClick={addInput}>Adicionar</button>
-        <button onClick={removeInput}>Remover</button>
-        <button onClick={handleSubmit}>Calcular</button>
+        <ButtonSuccess onClick={addInput}>Adicionar intervalo</ButtonSuccess>
+        <ButtonDanger className="ml-2" onClick={removeInput}>Remover intervalo</ButtonDanger>
+        <Button className="ml-2" onClick={handleSubmit}>Calcular</Button>
       </Container>
     </>
   );

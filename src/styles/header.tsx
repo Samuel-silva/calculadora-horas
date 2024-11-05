@@ -1,13 +1,12 @@
 import styled from "styled-components"
 
-const Header = styled.div`
-  padding: 0 0.5rem;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  min-height: 100vh;
+const HeaderStyle = styled.div`
+  background: ${({ theme }) => theme.colors.primary};
 `
 
-export { Header }
+const Title = styled.h1`
+  color: ${({ theme }) => theme.colors.light};
+  font-weight: 200;
+`
+
+export { HeaderStyle, Title }

@@ -1,7 +1,6 @@
 import Head from "next/head"
-import {
-  Container
-} from "styles/sharedstyles";
+import { HeaderStyle, Title } from "styles/header";
+import { Container } from "styles/sharedstyles";
 
 export default function Header() {
   return (
@@ -12,10 +11,12 @@ export default function Header() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header className="bg-indigo-300">
+      <header>
+        <HeaderStyle>
         <Container>
-          <h1 className="text-4xl py-3">Calculadora de horas trabalhadas</h1>
+          <Title className="text-4xl py-3">Calculadora de horas trabalhadas</Title>
         </Container>
+        </HeaderStyle>
       </header>
     </>
   );

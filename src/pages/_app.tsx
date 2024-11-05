@@ -5,8 +5,14 @@ import GlobalStyle from "styles/globalstyles";
 
 const theme: DefaultTheme = {
   colors: {
-    primary: "#111",
-    secondary: "#0070f3",
+    primary: "#05445e",
+    secondary: "#189ab4",
+    success: "#0E9F6E",
+    danger: "#F05252",
+    warnig: "#FCE96A",
+    info: "#3F83F8",
+    light: "#FAFAFA",
+    dark: "#333"
   },
 };
 
