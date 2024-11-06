@@ -8,10 +8,23 @@ import {
 } from "styles/buttons"
 import { useEffect, useState } from "react";
 
+interface Validation {
+  initBiggerFinish: boolean
+  emptyStart: boolean
+  emptyFinish: boolean
+}
+
+const createDefaultValidation = (): Validation => ({
+  initBiggerFinish: false,
+  emptyStart: false,
+  emptyFinish: false
+})
+
 export default function Calculator() {
   const [start, setStart] = useState<string[]>(['', ''])
   const [finish, setFinish] = useState<string[]>(['', ''])
   const [interval, setInterval] = useState<string[]>(['', ''])
+  const [validation, setValidation] = useState<Validation[]>([createDefaultValidation(), createDefaultValidation()])
   const [total, setTotal] = useState<string>('--:--')
   const [isRemoving, setIsRemoving] = useState<boolean>(false)
 
@@ -27,25 +40,29 @@ export default function Calculator() {
     setFinish(newValues)
   }
 
-  const addInput = ():void => {
+  const addInterval = ():void => {
     if (start.length < 5) {
       setStart([...start, ''])
       setFinish([...finish, ''])
       setInterval([...interval, ''])
+      setValidation([...validation, createDefaultValidation()])
     }
   }
 
-  const removeInput = ():void => {
+  const removeInterval = ():void => {
     if (start.length > 1) {
       const newStart = [...start]
       const newFinish = [...finish]
       const newCount = [...interval]
+      const newValidation = [...validation]
       newStart.pop()
       newFinish.pop()
       newCount.pop()
+      newValidation.pop()
       setStart(newStart)
       setFinish(newFinish)
       setInterval(newCount)
+      setValidation(newValidation)
       setIsRemoving(true)
     }
   }
@@ -55,23 +72,37 @@ export default function Calculator() {
     const finishInterval = new Date()
 
     const newInterval = start.map((value, index) => {
-      const format = value || '00:00';
-      startInterval.setHours(+format.substring(0, 2))
-      startInterval.setMinutes(+format.substring(3))
-      startInterval.setSeconds(0);
-      finishInterval.setHours(+finish[index].substring(0, 2))
-      finishInterval.setMinutes(+finish[index].substring(3))
-      finishInterval.setSeconds(0);
+      validation[index].emptyStart = !value
+      validation[index].emptyFinish = !finish[index]
 
-      let diff = (finishInterval.getTime() - startInterval.getTime()) / 1000 / 60;
-      if (diff < 0) {
-        diff += 24 * 60
+      if (!value || !finish[index]) {
+        return '00:00'
+      } else {
+        startInterval.setHours(+value.substring(0, 2))
+        startInterval.setMinutes(+value.substring(3))
+        startInterval.setSeconds(0);
+        finishInterval.setHours(+finish[index].substring(0, 2))
+        finishInterval.setMinutes(+finish[index].substring(3))
+        finishInterval.setSeconds(0);
+
+        console.log(finishInterval.getTime() < startInterval.getTime())
+
+        if (finishInterval.getTime() >= startInterval.getTime()) {
+          let diff = (finishInterval.getTime() - startInterval.getTime()) / 1000 / 60;
+          if (diff < 0) {
+            diff += 24 * 60
+          }
+
+          const hours = Math.floor(diff / 60)
+          const minutes = diff % 60
+          validation[index].initBiggerFinish = false
+
+          return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`
+        } else {
+          validation[index].initBiggerFinish = true
+          return '00:00'
+        }
       }
-
-      const hours = Math.floor(diff / 60)
-      const minutes = diff % 60
-
-      return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`
     })
 
     setInterval(newInterval)
@@ -108,37 +139,50 @@ export default function Calculator() {
         <div className="flex pb-4">
           <div className="flex flex-col">
             {start.map((value, index) => (
-              <div key={`label-${index}`} className="flex h-10 items-center">
-                <p key={`text-${index}`} className="w-24 text-lg">Intervalo {index + 1}:</p>
+              <div key={`container-${index}`} className="flex flex-col">
+                <div key={`label-${index}`} className="flex h-10 items-center">
+                  <p key={`text-${index}`} className="w-24 text-lg">Intervalo {index + 1}:</p>
 
-                <div className="mx-1">
-                  <input
-                    className="border border-solid border-gray-500 rounded px-1 w-24"
-                    key={`entry-${index}`}
-                    onChange={handleStartChange(index)}
-                    type="time"
-                    value={value}
-                  />
-                </div>
+                  <div className="mx-1">
+                    <input
+                      className={`border border-solid rounded px-1 w-24 ${validation[index].emptyStart ? "border-red-500" : "border-gray-500"}`}
+                      key={`entry-${index}`}
+                      onChange={handleStartChange(index)}
+                      type="time"
+                      value={value}
+                    />
+                  </div>
 
-                <div className="mx-1">
-                  <input
-                    className="border border-solid border-gray-500 rounded px-1 w-24"
-                    key={`finish-${index}`}
-                    onChange={handleFinishChange(index)}
-                    type="time"
-                    value={finish[index]}
-                  />
+                  <div className="mx-1">
+                    <input
+                      className={`border border-solid rounded px-1 w-24 ${validation[index].emptyFinish ? "border-red-500" : "border-gray-500"}`}
+                      key={`finish-${index}`}
+                      onChange={handleFinishChange(index)}
+                      type="time"
+                      value={finish[index]}
+                    />
+                  </div>
+
+                  <div className="mx-1">
+                    <input
+                      className={`px-0.5 w-24 bg-white ${interval[index] ? "visible" : "invisible"}`}
+                      disabled
+                      key={`count-${index}`}
+                      readOnly
+                      type="time"
+                      value={interval[index]}
+                    />
+                  </div>
                 </div>
-                <div className="mx-1">
-                  <input
-                    className={`px-0.5 w-24 bg-white ${interval[index] ? "visible" : "invisible"}`}
-                    disabled
-                    key={`count-${index}`}
-                    readOnly
-                    type="time"
-                    value={interval[index]}
-                  />
+                <div key={`validation-${index}`} className="h-4">
+                  <p
+                    className={`pl-24 ml-1 text-xs text-red-600 ${validation[index].initBiggerFinish ? "block" : "hidden"}`}
+                    key={`validation-bigger-${index}`}
+                  >Hora inicial maior que hora final</p>
+                  <p
+                    key={`validation-empty-${index}`}
+                    className={`pl-24 ml-1 text-xs text-red-600 ${validation[index].emptyStart || validation[index].emptyFinish ? "block" : "hidden"}`}
+                  >Preencha o(s) campo(s)</p>
                 </div>
               </div>
             ))}
@@ -146,8 +190,8 @@ export default function Calculator() {
         </div>
         <p className="text-2xl pb-4">Total de horas: {total}</p>
         <Button onClick={handleCalculate}>Calcular</Button>
-        <ButtonSuccess disabled={disabledAdd()} className="ml-2" onClick={addInput}>Adicionar intervalo</ButtonSuccess>
-        <ButtonDanger disabled={disabledRemove()} className="ml-2" onClick={removeInput}>Remover intervalo</ButtonDanger>
+        <ButtonSuccess disabled={disabledAdd()} className="ml-2" onClick={addInterval}>Adicionar intervalo</ButtonSuccess>
+        <ButtonDanger disabled={disabledRemove()} className="ml-2" onClick={removeInterval}>Remover intervalo</ButtonDanger>
       </Container>
     </>
   );
