@@ -86,7 +86,7 @@ export default function Calculator() {
   return (
     <>
       <Container>
-        <div className="flex items-center my-3">
+        <div className="flex items-center py-3">
           <p className="text-xl sm:text-2xl py-4">Intervalos</p>
           <ButtonSuccess disabled={disabledAdd()} className="ml-4" onClick={addInterval} aria-label="Adicionar intervalo"><i aria-hidden="true" className="material-symbols-outlined py-0.5 text-2xl">add</i></ButtonSuccess>
           <ButtonDanger disabled={disabledRemove()} className="ml-4" onClick={removeInterval} aria-label="Remover intervalo"><i aria-hidden="true" className="material-symbols-outlined py-0.5 text-2xl">remove</i></ButtonDanger>

@@ -1,12 +1,18 @@
 import Head from "next/head"
-import { HeaderStyle, Title } from "styles/header";
-import { Container } from "styles/sharedstyles";
+import { HeaderStyle, Title } from "styles/header"
+import { Container } from "styles/sharedstyles"
 
-export default function Header() {
+type HeaderProps = {
+  title: string
+}
+
+export default function Header(props: HeaderProps) {
+  const { title } = props
+
   return (
     <>
       <Head>
-        <title>Calculadora de horas</title>
+        <title>Jornada de trabalho</title>
 
         <meta name="description" content="Calculadora de horas" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -18,7 +24,7 @@ export default function Header() {
       <header>
         <HeaderStyle>
         <Container>
-          <Title className="text-xl sm:text-2xl md:text-3xl xl:text-4xl py-3">Calculadora de horas trabalhadas</Title>
+          <Title className="text-2xl md:text-3xl xl:text-4xl py-3">{title}</Title>
         </Container>
         </HeaderStyle>
       </header>
