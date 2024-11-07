@@ -7,26 +7,17 @@ import {
   ButtonSuccess
 } from "styles/buttons"
 import { useEffect, useState } from "react";
-
-interface Validation {
-  initBiggerFinish: boolean
-  emptyStart: boolean
-  emptyFinish: boolean
-}
-
-const createDefaultValidation = (): Validation => ({
-  initBiggerFinish: false,
-  emptyStart: false,
-  emptyFinish: false
-})
+import { useIntervals } from "hooks/useIntervals"
+import { useValidation } from "hooks/useValidation"
+import { useConversion } from "hooks/useConversion"
 
 export default function Calculator() {
-  const [start, setStart] = useState<string[]>(['', ''])
-  const [finish, setFinish] = useState<string[]>(['', ''])
-  const [interval, setInterval] = useState<string[]>(['', ''])
-  const [validation, setValidation] = useState<Validation[]>([createDefaultValidation(), createDefaultValidation()])
   const [total, setTotal] = useState<string>('--:--')
   const [isRemoving, setIsRemoving] = useState<boolean>(false)
+
+  const { validation, setValidation } = useValidation()
+  const { toMinutes, toHours } = useConversion()
+  const { start, finish, interval, addInterval, removeInterval, setStart, setFinish, setInterval } = useIntervals(validation, setValidation, setIsRemoving)
 
   const handleStartChange = (index: number) => (event: React.ChangeEvent<HTMLInputElement>):void => {
     const newValues = [...start]
@@ -38,33 +29,6 @@ export default function Calculator() {
     const newValues = [...finish]
     newValues[index] = event.target.value
     setFinish(newValues)
-  }
-
-  const addInterval = ():void => {
-    if (start.length < 5) {
-      setStart([...start, ''])
-      setFinish([...finish, ''])
-      setInterval([...interval, ''])
-      setValidation([...validation, createDefaultValidation()])
-    }
-  }
-
-  const removeInterval = ():void => {
-    if (start.length > 1) {
-      const newStart = [...start]
-      const newFinish = [...finish]
-      const newCount = [...interval]
-      const newValidation = [...validation]
-      newStart.pop()
-      newFinish.pop()
-      newCount.pop()
-      newValidation.pop()
-      setStart(newStart)
-      setFinish(newFinish)
-      setInterval(newCount)
-      setValidation(newValidation)
-      setIsRemoving(true)
-    }
   }
 
   const handleCalculate = ():void => {
@@ -83,9 +47,7 @@ export default function Calculator() {
         startInterval.setSeconds(0);
         finishInterval.setHours(+finish[index].substring(0, 2))
         finishInterval.setMinutes(+finish[index].substring(3))
-        finishInterval.setSeconds(0);
-
-        console.log(finishInterval.getTime() < startInterval.getTime())
+        finishInterval.setSeconds(0)
 
         if (finishInterval.getTime() >= startInterval.getTime()) {
           let diff = (finishInterval.getTime() - startInterval.getTime()) / 1000 / 60;
@@ -109,17 +71,6 @@ export default function Calculator() {
 
     const totalMinutes = newInterval.reduce((soma, tempo) => soma + toMinutes(tempo), 0)
     setTotal(toHours(totalMinutes))
-  }
-
-  const toMinutes = (timeString: string): number => {
-    const [hours, minutes] = timeString.split(':').map(Number)
-    return (hours * 60) + minutes;
-  }
-
-  const toHours = (minutes: number): string => {
-    const hours = Math.floor(minutes / 60)
-    const rest = minutes % 60
-    return `${String(hours).padStart(2, '0')}:${String(rest).padStart(2, '0')}`
   }
 
   const disabledAdd = ():boolean => start.length > 4
