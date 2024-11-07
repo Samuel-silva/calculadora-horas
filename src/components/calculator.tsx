@@ -36,8 +36,8 @@ export default function Calculator() {
     const finishInterval = new Date()
 
     const newInterval = start.map((value, index) => {
-      validation[index].emptyStart = !value
-      validation[index].emptyFinish = !finish[index]
+      validation[index].emptyStart = !value && !!finish[index]
+      validation[index].emptyFinish = !finish[index] && !!value
 
       if (!value || !finish[index]) {
         return '00:00'
@@ -86,7 +86,11 @@ export default function Calculator() {
   return (
     <>
       <Container>
-        <p className="text-2xl py-4">Intervalos</p>
+        <div className="flex items-center my-3">
+          <p className="text-2xl py-4">Intervalos</p>
+          <ButtonSuccess disabled={disabledAdd()} className="ml-4" onClick={addInterval}><span className="material-symbols-outlined py-0.5">add</span></ButtonSuccess>
+          <ButtonDanger disabled={disabledRemove()} className="ml-4" onClick={removeInterval}><i className="material-symbols-outlined py-0.5">remove</i></ButtonDanger>
+        </div>
         <div className="flex pb-4">
           <div className="flex flex-col">
             {start.map((value, index) => (
@@ -133,7 +137,7 @@ export default function Calculator() {
                   <p
                     key={`validation-empty-${index}`}
                     className={`pl-24 ml-1 text-xs text-red-600 ${validation[index].emptyStart || validation[index].emptyFinish ? "block" : "hidden"}`}
-                  >Preencha o(s) campo(s)</p>
+                  >Preencha o campo</p>
                 </div>
               </div>
             ))}
@@ -141,8 +145,6 @@ export default function Calculator() {
         </div>
         <p className="text-2xl pb-4">Total de horas: {total}</p>
         <Button onClick={handleCalculate}>Calcular</Button>
-        <ButtonSuccess disabled={disabledAdd()} className="ml-2" onClick={addInterval}>Adicionar intervalo</ButtonSuccess>
-        <ButtonDanger disabled={disabledRemove()} className="ml-2" onClick={removeInterval}>Remover intervalo</ButtonDanger>
       </Container>
     </>
   );

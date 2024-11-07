@@ -6,6 +6,9 @@ const GlobalStyle = createGlobalStyle`
     color: ${({ theme }) => theme.colors.dark};
     padding: 0;
     margin: 0;
+    min-width: 320px;
+    overflow: hidden;
+    width: 100vw;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
       Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   }

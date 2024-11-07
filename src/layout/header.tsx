@@ -7,14 +7,17 @@ export default function Header() {
     <>
       <Head>
         <title>Calculadora de horas</title>
+
         <meta name="description" content="Calculadora de horas" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <header>
         <HeaderStyle>
         <Container>
-          <Title className="text-4xl py-3">Calculadora de horas trabalhadas</Title>
+          <Title className="text-3xl py-3">Calculadora de horas trabalhadas</Title>
         </Container>
         </HeaderStyle>
       </header>

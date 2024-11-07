@@ -4,7 +4,7 @@ const Button = styled.button`
   background: ${({ theme }) => theme.colors.secondary};
   border-radius: 5px;
   color: ${({ theme }) => theme.colors.light};
-  display: inline-block;
+  display: flex;
   font-size: 1.1rem;
   padding: 4px 10px;
   transition: all 0.3s linear;
