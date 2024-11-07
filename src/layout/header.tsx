@@ -10,6 +10,7 @@ export default function Header() {
 
         <meta name="description" content="Calculadora de horas" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#05445e" />
 
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -17,7 +18,7 @@ export default function Header() {
       <header>
         <HeaderStyle>
         <Container>
-          <Title className="text-3xl py-3">Calculadora de horas trabalhadas</Title>
+          <Title className="text-xl sm:text-2xl md:text-3xl xl:text-4xl py-3">Calculadora de horas trabalhadas</Title>
         </Container>
         </HeaderStyle>
       </header>

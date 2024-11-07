@@ -5,8 +5,7 @@ const Button = styled.button`
   border-radius: 5px;
   color: ${({ theme }) => theme.colors.light};
   display: flex;
-  font-size: 1.1rem;
-  padding: 4px 10px;
+  padding: 0.2em 0.7em;
   transition: all 0.3s linear;
 
   ${({ disabled }) =>

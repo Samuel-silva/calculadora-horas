@@ -87,20 +87,20 @@ export default function Calculator() {
     <>
       <Container>
         <div className="flex items-center my-3">
-          <p className="text-2xl py-4">Intervalos</p>
-          <ButtonSuccess disabled={disabledAdd()} className="ml-4" onClick={addInterval}><span className="material-symbols-outlined py-0.5">add</span></ButtonSuccess>
-          <ButtonDanger disabled={disabledRemove()} className="ml-4" onClick={removeInterval}><i className="material-symbols-outlined py-0.5">remove</i></ButtonDanger>
+          <p className="text-xl sm:text-2xl py-4">Intervalos</p>
+          <ButtonSuccess disabled={disabledAdd()} className="ml-4" onClick={addInterval} aria-label="Adicionar intervalo"><i aria-hidden="true" className="material-symbols-outlined py-0.5 text-2xl">add</i></ButtonSuccess>
+          <ButtonDanger disabled={disabledRemove()} className="ml-4" onClick={removeInterval} aria-label="Remover intervalo"><i aria-hidden="true" className="material-symbols-outlined py-0.5 text-2xl">remove</i></ButtonDanger>
         </div>
         <div className="flex pb-4">
           <div className="flex flex-col">
             {start.map((value, index) => (
               <div key={`container-${index}`} className="flex flex-col">
                 <div key={`label-${index}`} className="flex h-10 items-center">
-                  <p key={`text-${index}`} className="w-24 text-lg">Intervalo {index + 1}:</p>
+                  <p key={`text-${index}`} className="w-20 sm:w-24 text-sm sm:text-lg">Intervalo {index + 1}:</p>
 
-                  <div className="mx-1">
+                  <div className="mx-0.5 sm:mx-1">
                     <input
-                      className={`border border-solid rounded px-1 w-24 ${validation[index].emptyStart ? "border-red-500" : "border-gray-500"}`}
+                      className={`border border-solid rounded px-1 w-20 sm:w-24 ${validation[index].emptyStart ? "border-red-500" : "border-gray-500"}`}
                       key={`entry-${index}`}
                       onChange={handleStartChange(index)}
                       type="time"
@@ -108,9 +108,9 @@ export default function Calculator() {
                     />
                   </div>
 
-                  <div className="mx-1">
+                  <div className="mx-0.5 sm:mx-1">
                     <input
-                      className={`border border-solid rounded px-1 w-24 ${validation[index].emptyFinish ? "border-red-500" : "border-gray-500"}`}
+                      className={`border border-solid rounded px-1 w-20 sm:w-24 ${validation[index].emptyFinish ? "border-red-500" : "border-gray-500"}`}
                       key={`finish-${index}`}
                       onChange={handleFinishChange(index)}
                       type="time"
@@ -118,9 +118,9 @@ export default function Calculator() {
                     />
                   </div>
 
-                  <div className="mx-1">
+                  <div className="mx-0.5 sm:mx-1">
                     <input
-                      className={`px-0.5 w-24 bg-white ${interval[index] ? "visible" : "invisible"}`}
+                      className={`px-0.5 w-20 sm:w-24 text-sm sm:text-base bg-white ${interval[index] ? "visible" : "invisible"}`}
                       disabled
                       key={`count-${index}`}
                       readOnly
@@ -143,8 +143,8 @@ export default function Calculator() {
             ))}
           </div>
         </div>
-        <p className="text-2xl pb-4">Total de horas: {total}</p>
-        <Button onClick={handleCalculate}>Calcular</Button>
+        <p className="text-xl sm:text-2xl pb-4">Total de horas: {total}</p>
+        <Button onClick={handleCalculate} className="text-lg sm:text-xl">Calcular</Button>
       </Container>
     </>
   );
