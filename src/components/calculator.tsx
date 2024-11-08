@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { useIntervals } from "hooks/useIntervals"
 import { useValidation } from "hooks/useValidation"
 import { useConversion } from "hooks/useConversion"
+import Link from "next/link";
 
 export default function Calculator() {
   const [total, setTotal] = useState<string>('--:--')
@@ -86,6 +87,14 @@ export default function Calculator() {
   return (
     <>
       <Container>
+        <div className="flex items-center pt-2">
+          <Link href="/" className="flex items-center mr-1 text-indigo-800">
+            <i aria-hidden="true" className="material-symbols-outlined material-symbols-fill text-2xl pr-1">home</i>
+            <span className="text-lg pt-0.5">Home</span>
+          </Link>
+          <p className="text-gray-500">/ Somar horas</p>
+        </div>
+
         <div className="flex items-center py-3">
           <p className="text-xl sm:text-2xl py-4">Intervalos</p>
           <ButtonSuccess disabled={disabledAdd()} className="ml-4" onClick={addInterval} aria-label="Adicionar intervalo"><i aria-hidden="true" className="material-symbols-outlined py-0.5 text-2xl">add</i></ButtonSuccess>
