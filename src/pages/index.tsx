@@ -6,7 +6,7 @@ import { Container } from "styles/sharedstyles";
 export default function Home() {
   return (
     <>
-      <Header title="Jornada de trabalho"/>
+      <Header />
       <main>
         <Container>
           <div className="flex justify-center flex-col sm:flex-row py-10">

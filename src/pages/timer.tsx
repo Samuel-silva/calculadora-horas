@@ -1,15 +1,19 @@
+import BreadCrump from "components/BreadCrump";
+import Footer from "layout/footer";
 import Header from "layout/header";
 import Link from "next/link";
 import { Container } from "styles/sharedstyles";
 
-export default function Home() {
+export default function Timer() {
+  const titlePage = 'Temporizador'
+
   return (
     <>
-      <Header title="Temporizador" />
-      <Container>
-        <Link href="/calculator">Somar horas</Link>
-        <Link href="/calculator">Somar horas</Link>
-      </Container>
+      <Header title={titlePage} />
+      <main>
+        <BreadCrump title={titlePage} />
+      </main>
+      <Footer />
     </>
   )
 }

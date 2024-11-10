@@ -3,16 +3,18 @@ import { HeaderStyle, Title } from "styles/header"
 import { Container } from "styles/sharedstyles"
 
 type HeaderProps = {
-  title: string
+  title?: string
 }
 
-export default function Header(props: HeaderProps) {
-  const { title } = props
+export default function Header({ title }: HeaderProps) {
+  const defaultTitle = 'Jornada de trabalho'
+  const titlePage = title ? `${defaultTitle} - ${title}` : defaultTitle
+  const titleMain = title || defaultTitle
 
   return (
     <>
       <Head>
-        <title>Jornada de trabalho</title>
+        <title>{ titlePage }</title>
 
         <meta name="description" content="Calculadora de horas" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -24,7 +26,7 @@ export default function Header(props: HeaderProps) {
       <header>
         <HeaderStyle>
         <Container>
-          <Title className="text-2xl md:text-3xl xl:text-4xl py-3">{title}</Title>
+          <Title className="text-2xl md:text-3xl xl:text-4xl py-3">{titleMain}</Title>
         </Container>
         </HeaderStyle>
       </header>
