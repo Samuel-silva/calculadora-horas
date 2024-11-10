@@ -2,13 +2,19 @@ import { Dispatch, SetStateAction, useState } from "react"
 import { Validation,  createDefaultValidation } from "./useValidation"
 
 export const useIntervals = (
+  count: number,
   validation: Validation[],
   setValidation: (newValidation: Validation[]) => void,
   setIsRemoving: Dispatch<SetStateAction<boolean>>) => {
 
-  const [start, setStart] = useState<string[]>(['', ''])
-  const [finish, setFinish] = useState<string[]>(['', ''])
-  const [interval, setInterval] = useState<string[]>(['', ''])
+  const inital = []
+  for (let index = 0; index < count; index++) {
+    inital.push('')
+  }
+
+  const [start, setStart] = useState<string[]>(inital)
+  const [finish, setFinish] = useState<string[]>(inital)
+  const [interval, setInterval] = useState<string[]>(inital)
 
   const addInterval = (): void => {
     if (start.length < 5) {

@@ -11,13 +11,14 @@ import { useIntervals } from "hooks/useIntervals"
 import { useValidation } from "hooks/useValidation"
 import { useConversion } from "hooks/useConversion"
 
-export default function Calculator() {
+export default function Timer() {
   const [total, setTotal] = useState<string>('--:--')
+  const [workingHours, setWorkingHours] = useState<string>('08:00')
   const [isRemoving, setIsRemoving] = useState<boolean>(false)
 
   const { validation, setValidation } = useValidation()
   const { toMinutes, toHours } = useConversion()
-  const { start, finish, interval, addInterval, removeInterval, setStart, setFinish, setInterval } = useIntervals(2,  validation, setValidation, setIsRemoving)
+  const { start, finish, interval, addInterval, removeInterval, setStart, setFinish, setInterval } = useIntervals(1, validation, setValidation, setIsRemoving)
 
   const handleStartChange = (index: number) => (event: React.ChangeEvent<HTMLInputElement>):void => {
     const newValues = [...start]
@@ -93,6 +94,20 @@ export default function Calculator() {
         </div>
         <div className="flex pb-4">
           <div className="flex flex-col">
+            <div className="flex h-10 items-center mb-4">
+              <label htmlFor="workingHours" className="text-sm sm:text-lg">Horas trabalhadas por dia:</label>
+              <div className="mx-0.5 sm:mx-1">
+                <input
+                  className="border border-solid rounded px-1 w-20 sm:w-24 border-gray-500"
+                  max="12:00"
+                  min="00:00"
+                  name="workingHours"
+                  onChange={e => setWorkingHours(e.target.value)}
+                  type="time"
+                  value={workingHours}
+                />
+              </div>
+            </div>
             {start.map((value, index) => (
               <div key={`container-${index}`} className="flex flex-col">
                 <div key={`label-${index}`} className="flex h-10 items-center">
@@ -143,8 +158,8 @@ export default function Calculator() {
             ))}
           </div>
         </div>
-        <p className="text-xl sm:text-2xl pb-4">Total de horas: {total}</p>
-        <Button onClick={handleCalculate} className="text-lg sm:text-xl">Calcular</Button>
+        <p className="text-xl sm:text-2xl pb-4">Faltam: {total}</p>
+        <Button onClick={handleCalculate} className="text-lg sm:text-xl">Iniciar</Button>
       </Container>
     </>
   );
