@@ -11,7 +11,7 @@ import { useIntervals } from "hooks/useIntervals"
 import { useValidation } from "hooks/useValidation"
 import { useConversion } from "hooks/useConversion"
 
-export default function Calculator() {
+export default function SumHours() {
   const [total, setTotal] = useState<string>('--:--')
   const [isRemoving, setIsRemoving] = useState<boolean>(false)
 
