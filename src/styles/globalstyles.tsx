@@ -4,14 +4,12 @@ const GlobalStyle = createGlobalStyle`
   html,
   body {
     color: ${({ theme }) => theme.colors.dark};
-    padding: 0 0 20px 0;
+    padding: 0 0 24px 0;
     margin: 0;
     min-width: 320px;
     overflow-x: hidden;
     overflow-y: auto;
     width: 100vw;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   }
 
   .material-symbols-fill {

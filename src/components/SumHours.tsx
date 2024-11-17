@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 import { useIntervals } from "hooks/useIntervals"
 import { useValidation } from "hooks/useValidation"
 import { useConversion } from "hooks/useConversion"
+import Add from '@mui/icons-material/AddOutlined'
+import Remove from '@mui/icons-material/RemoveOutlined'
 
 export default function SumHours() {
   const [total, setTotal] = useState<string>('--:--')
@@ -88,19 +90,23 @@ export default function SumHours() {
       <Container>
         <div className="flex items-center py-3">
           <p className="text-xl sm:text-2xl py-4">Intervalos</p>
-          <ButtonSuccess disabled={disabledAdd()} className="ml-4" onClick={addInterval} aria-label="Adicionar intervalo"><i aria-hidden="true" className="material-symbols-outlined py-0.5 text-2xl">add</i></ButtonSuccess>
-          <ButtonDanger disabled={disabledRemove()} className="ml-4" onClick={removeInterval} aria-label="Remover intervalo"><i aria-hidden="true" className="material-symbols-outlined py-0.5 text-2xl">remove</i></ButtonDanger>
+          <ButtonSuccess disabled={disabledAdd()} className="ml-4" onClick={addInterval} aria-label="Adicionar intervalo">
+            <Add className="text-white my-0.5" style={{ fontSize: "clamp(26px, 2vw, 30px)" }} />
+          </ButtonSuccess>
+          <ButtonDanger disabled={disabledRemove()} className="ml-4" onClick={removeInterval} aria-label="Remover intervalo">
+            <Remove className="text-white my-0.5" style={{ fontSize: "clamp(26px, 2vw, 30px)" }} />
+          </ButtonDanger>
         </div>
         <div className="flex pb-4">
           <div className="flex flex-col">
             {start.map((value, index) => (
               <div key={`container-${index}`} className="flex flex-col">
                 <div key={`label-${index}`} className="flex h-10 items-center">
-                  <p key={`text-${index}`} className="w-20 sm:w-24 text-sm sm:text-lg">Intervalo {index + 1}:</p>
+                  <p key={`text-${index}`} className="w-20 sm:w-28 text-sm sm:text-lg">Intervalo {index + 1}:</p>
 
                   <div className="mx-0.5 sm:mx-1">
                     <input
-                      className={`border border-solid rounded px-1 w-20 sm:w-24 ${validation[index].emptyStart ? "border-red-500" : "border-gray-500"}`}
+                      className={`border border-solid rounded text-sm sm:text-base px-1 w-20 sm:w-24 ${validation[index].emptyStart ? "border-red-500" : "border-gray-500"}`}
                       key={`entry-${index}`}
                       onChange={handleStartChange(index)}
                       type="time"
@@ -110,7 +116,7 @@ export default function SumHours() {
 
                   <div className="mx-0.5 sm:mx-1">
                     <input
-                      className={`border border-solid rounded px-1 w-20 sm:w-24 ${validation[index].emptyFinish ? "border-red-500" : "border-gray-500"}`}
+                      className={`border border-solid rounded text-sm sm:text-base px-1 w-20 sm:w-24 ${validation[index].emptyFinish ? "border-red-500" : "border-gray-500"}`}
                       key={`finish-${index}`}
                       onChange={handleFinishChange(index)}
                       type="time"

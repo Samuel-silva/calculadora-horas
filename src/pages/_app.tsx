@@ -1,7 +1,8 @@
-import type { AppProps } from "next/app";
-import { ThemeProvider, type DefaultTheme } from "styled-components";
-import 'styles/globals.css';
-import GlobalStyle from "styles/globalstyles";
+import type { AppProps } from "next/app"
+import { ThemeProvider, type DefaultTheme } from "styled-components"
+import 'styles/globals.css'
+import GlobalStyle from "styles/globalstyles"
+import { Montserrat } from "next/font/google"
 
 const theme: DefaultTheme = {
   colors: {
@@ -16,13 +17,18 @@ const theme: DefaultTheme = {
   },
 };
 
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  display: 'swap'
+})
+
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <div className={ montserrat.className }>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Component {...pageProps} />
       </ThemeProvider>
-    </>
+    </div>
   );
 }

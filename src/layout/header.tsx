@@ -26,7 +26,7 @@ export default function Header({ title }: HeaderProps) {
       <header>
         <HeaderStyle>
         <Container>
-          <Title className="text-2xl md:text-3xl xl:text-4xl py-3">{titleMain}</Title>
+          <Title className="text-2xl md:text-3xl xl:text-4xl py-3 px-1">{titleMain}</Title>
         </Container>
         </HeaderStyle>
       </header>
