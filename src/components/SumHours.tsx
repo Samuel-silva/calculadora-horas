@@ -137,12 +137,12 @@ export default function SumHours() {
                 </div>
                 <div key={`validation-${index}`} className="h-4">
                   <p
-                    className={`pl-24 ml-1 text-xs text-red-600 ${validation[index].initBiggerFinish ? "block" : "hidden"}`}
+                    className={`pl-20 sm:pl-28 ml-1 text-xs text-red-600 ${validation[index].initBiggerFinish ? "block" : "hidden"}`}
                     key={`validation-bigger-${index}`}
                   >Hora inicial maior que hora final</p>
                   <p
                     key={`validation-empty-${index}`}
-                    className={`pl-24 ml-1 text-xs text-red-600 ${validation[index].emptyStart || validation[index].emptyFinish ? "block" : "hidden"}`}
+                    className={`pl-20 sm:pl-28 ml-1 text-xs text-red-600 ${validation[index].emptyStart || validation[index].emptyFinish ? "block" : "hidden"}`}
                   >Preencha o campo</p>
                 </div>
               </div>
