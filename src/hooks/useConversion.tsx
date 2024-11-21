@@ -1,8 +1,7 @@
 export const useConversion = () => {
-
   const toMinutes = (timeString: string): number => {
     const [hours, minutes] = timeString.split(':').map(Number)
-    return (hours * 60) + minutes
+    return hours * 60 + minutes
   }
 
   const toHours = (minutes: number): string => {

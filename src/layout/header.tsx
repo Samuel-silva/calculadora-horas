@@ -1,6 +1,6 @@
-import Head from "next/head"
-import { HeaderStyle, Title } from "styles/header"
-import { Container } from "styles/sharedstyles"
+import Head from 'next/head'
+import { HeaderStyle, Title } from 'styles/header'
+import { Container } from 'styles/sharedstyles'
 
 type HeaderProps = {
   title?: string
@@ -14,7 +14,7 @@ export default function Header({ title }: HeaderProps) {
   return (
     <>
       <Head>
-        <title>{ titlePage }</title>
+        <title>{titlePage}</title>
 
         <meta name="description" content="Calculadora de horas" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -25,11 +25,13 @@ export default function Header({ title }: HeaderProps) {
 
       <header>
         <HeaderStyle>
-        <Container>
-          <Title className="text-2xl md:text-3xl xl:text-4xl py-3 px-1">{titleMain}</Title>
-        </Container>
+          <Container>
+            <Title className="text-2xl md:text-3xl xl:text-4xl py-3 px-1">
+              {titleMain}
+            </Title>
+          </Container>
         </HeaderStyle>
       </header>
     </>
-  );
+  )
 }

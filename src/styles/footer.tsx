@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 
 const FooterStyle = styled.footer`
   background: ${({ theme }) => theme.colors.primary};

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 const Button = styled.button`
   background: ${({ theme }) => theme.colors.secondary};
@@ -19,23 +19,22 @@ const Button = styled.button`
     }
   `}
 
-
   ${({ disabled }) =>
     disabled &&
     `
     opacity: 0.5;
     cursor: default;
   `}
-`;
+`
 
 const ButtonDanger = styled(Button)`
   background: ${({ theme }) => theme.colors.danger};
   color: ${({ theme }) => theme.colors.light};
-  `
+`
 
 const ButtonSuccess = styled(Button)`
-    background: ${({ theme }) => theme.colors.success};
-    color: ${({ theme }) => theme.colors.light};
-  `
+  background: ${({ theme }) => theme.colors.success};
+  color: ${({ theme }) => theme.colors.light};
+`
 
-export { Button, ButtonDanger, ButtonSuccess };
+export { Button, ButtonDanger, ButtonSuccess }
