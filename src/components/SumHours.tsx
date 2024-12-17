@@ -1,11 +1,12 @@
 import { Container } from 'styles/sharedstyles'
 import { Button, ButtonDanger, ButtonSuccess } from 'styles/buttons'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useIntervals } from 'hooks/useIntervals'
 import { useValidation } from 'hooks/useValidation'
 import { useConversion } from 'hooks/useConversion'
 import Add from '@mui/icons-material/AddOutlined'
 import Remove from '@mui/icons-material/RemoveOutlined'
+import moment from 'moment'
 
 export default function SumHours() {
   const [total, setTotal] = useState<string>('--:--')
@@ -40,10 +41,7 @@ export default function SumHours() {
       setFinish(newValues)
     }
 
-  const handleCalculate = (): void => {
-    const startInterval = new Date()
-    const finishInterval = new Date()
-
+  const handleCalculate = useCallback((): void => {
     const newInterval = start.map((value, index) => {
       validation[index].emptyStart = !value && !!finish[index]
       validation[index].emptyFinish = !finish[index] && !!value
@@ -51,25 +49,18 @@ export default function SumHours() {
       if (!value || !finish[index]) {
         return '00:00'
       } else {
-        startInterval.setHours(+value.substring(0, 2))
-        startInterval.setMinutes(+value.substring(3))
-        startInterval.setSeconds(0)
-        finishInterval.setHours(+finish[index].substring(0, 2))
-        finishInterval.setMinutes(+finish[index].substring(3))
-        finishInterval.setSeconds(0)
+        const startInterval = moment(value, 'HH:mm')
+        const finishInterval = moment(finish[index], 'HH:mm')
+        const diff = finishInterval.diff(startInterval, 'minutes')
 
-        if (finishInterval.getTime() >= startInterval.getTime()) {
-          let diff =
-            (finishInterval.getTime() - startInterval.getTime()) / 1000 / 60
-          if (diff < 0) {
-            diff += 24 * 60
-          }
-
+        if (diff >= 0) {
           const hours = Math.floor(diff / 60)
           const minutes = diff % 60
           validation[index].initBiggerFinish = false
 
-          return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`
+          return `${hours.toString().padStart(2, '0')}:${minutes
+            .toString()
+            .padStart(2, '0')}`
         } else {
           validation[index].initBiggerFinish = true
           return '00:00'
@@ -84,7 +75,7 @@ export default function SumHours() {
       0
     )
     setTotal(toHours(totalMinutes))
-  }
+  }, [start, finish, validation, toMinutes, toHours, setInterval, setTotal])
 
   const disabledAdd = (): boolean => start.length > 4
   const disabledRemove = (): boolean => start.length < 2
@@ -94,7 +85,7 @@ export default function SumHours() {
       handleCalculate()
       setIsRemoving(false)
     }
-  }, [isRemoving])
+  }, [isRemoving, handleCalculate])
 
   return (
     <>
