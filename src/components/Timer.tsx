@@ -9,7 +9,7 @@ import Remove from '@mui/icons-material/RemoveOutlined'
 
 export default function Timer() {
   const [total, setTotal] = useState<string>('--:--')
-  const [count, setCount] = useState<string>('--:--')
+  // const [count, setCount] = useState<string>('--:--')
   const [workingHours, setWorkingHours] = useState<string>('08:00')
   const [isRemoving, setIsRemoving] = useState<boolean>(false)
 
@@ -34,8 +34,8 @@ export default function Timer() {
       setFinish(newValues)
     }
 
-  const updateFinish = (index, value) => {
-    console.log()
+  const updateFinish = (index: number, value: string) => {
+    // console.log()
     const newValues = [...finish]
     newValues[index] = value
     setFinish(newValues)
