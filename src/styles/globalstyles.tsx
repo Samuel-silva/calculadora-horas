@@ -4,7 +4,6 @@ const GlobalStyle = createGlobalStyle`
   html,
   body {
     color: ${({ theme }) => theme.colors.dark};
-    padding: 0 0 24px 0;
     margin: 0;
     min-width: 320px;
     overflow-x: hidden;

@@ -1,11 +1,10 @@
 import { Container } from 'styles/sharedstyles'
-import { Button, ButtonDanger, ButtonSuccess } from 'styles/buttons'
-import { useEffect, useState } from 'react'
+import { Button, ButtonSuccess } from 'styles/buttons'
+import { useState } from 'react'
 import { useIntervals } from 'hooks/useIntervals'
 import { useValidation } from 'hooks/useValidation'
 import { useConversion } from 'hooks/useConversion'
 import Add from '@mui/icons-material/AddOutlined'
-import Remove from '@mui/icons-material/RemoveOutlined'
 
 export default function Timer() {
   const [total, setTotal] = useState<string>('--:--')
@@ -15,8 +14,12 @@ export default function Timer() {
 
   const { validation, setValidation } = useValidation()
   const { toMinutes, toHours } = useConversion()
-  const { start, finish, addInterval, removeInterval, setStart, setFinish } =
-    useIntervals(1, validation, setValidation, setIsRemoving)
+  const { start, finish, addInterval, setStart, setFinish } = useIntervals(
+    1,
+    validation,
+    setValidation,
+    setIsRemoving
+  )
 
   const handleStartChange =
     (index: number) =>
@@ -106,14 +109,14 @@ export default function Timer() {
   }
 
   const disabledAdd = (): boolean => start.length > 4
-  const disabledRemove = (): boolean => start.length < 2
+  // const disabledRemove = (): boolean => start.length < 2
 
-  useEffect(() => {
-    if (isRemoving) {
-      handleTimer()
-      setIsRemoving(false)
-    }
-  }, [isRemoving])
+  // useEffect(() => {
+  //   if (isRemoving) {
+  //     handleTimer()
+  //     setIsRemoving(false)
+  //   }
+  // }, [isRemoving])
 
   return (
     <>
@@ -131,17 +134,17 @@ export default function Timer() {
               style={{ fontSize: 'clamp(26px, 2vw, 30px)' }}
             />
           </ButtonSuccess>
-          <ButtonDanger
+          {/* <ButtonDanger
             disabled={disabledRemove()}
             className="ml-4"
-            onClick={removeInterval}
+            onClick={() => removeInterval()}
             aria-label="Remover intervalo"
           >
             <Remove
               className="text-white my-0.5"
               style={{ fontSize: 'clamp(26px, 2vw, 30px)' }}
             />
-          </ButtonDanger>
+          </ButtonDanger> */}
         </div>
         <div className="flex pb-4">
           <div className="flex flex-col">

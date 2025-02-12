@@ -6,9 +6,9 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="fixed bottom-0 left-0 h-6 bg-gray-800 w-full">
+      <footer className="absolute bottom-0 left-0 h-6 bg-gray-100 w-full">
         <Container>
-          <p className="text-center text-white text-xs h-6 flex justify-center items-center">
+          <p className="text-center text-black text-xs h-6 flex justify-center items-center">
             © {year} - Todos direitos reservados
           </p>
         </Container>

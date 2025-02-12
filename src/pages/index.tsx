@@ -31,7 +31,7 @@ export default function Home() {
                 className="text-white mr-1"
                 style={{ fontSize: 'clamp(50px, 10vw, 100px)' }}
               />
-              <p className="text-2xl md:text-4xl">Somar horas</p>
+              <p className="text-2xl md:text-4xl">Caclculadora de horas</p>
             </Link>
           </div>
         </Container>

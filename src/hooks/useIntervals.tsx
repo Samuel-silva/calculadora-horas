@@ -25,22 +25,20 @@ export const useIntervals = (
     }
   }
 
-  const removeInterval = (): void => {
-    if (start.length > 1) {
-      const newStart = [...start]
-      const newFinish = [...finish]
-      const newCount = [...interval]
-      const newValidation = [...validation]
-      newStart.pop()
-      newFinish.pop()
-      newCount.pop()
-      newValidation.pop()
-      setStart(newStart)
-      setFinish(newFinish)
-      setInterval(newCount)
-      setValidation(newValidation)
-      setIsRemoving(true)
-    }
+  const removeInterval = (index: number): void => {
+    const newStart = [...start]
+    const newFinish = [...finish]
+    const newCount = [...interval]
+    const newValidation = [...validation]
+    newStart.splice(index, 1)
+    newFinish.splice(index, 1)
+    newCount.pop()
+    newValidation.pop()
+    setStart(newStart)
+    setFinish(newFinish)
+    setInterval(newCount)
+    setValidation(newValidation)
+    setIsRemoving(true)
   }
 
   return {

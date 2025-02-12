@@ -5,7 +5,7 @@ const Button = styled.button`
   border-radius: 5px;
   color: ${({ theme }) => theme.colors.light};
   display: flex;
-  padding: 0.2em 0.7em;
+  padding: 0.4em 0.7em;
   transition: all 0.3s linear;
 
   ${({ disabled }) =>
@@ -23,7 +23,7 @@ const Button = styled.button`
     disabled &&
     `
     opacity: 0.5;
-    cursor: default;
+    cursor: no-drop;
   `}
 `
 
@@ -37,4 +37,22 @@ const ButtonSuccess = styled(Button)`
   color: ${({ theme }) => theme.colors.light};
 `
 
-export { Button, ButtonDanger, ButtonSuccess }
+const ButtonDefault = styled(Button)`
+  background: #eee;
+  color: #444;
+
+  &:hover {
+    background: #eaeaea;
+    box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
+  }
+  ${({ disabled }) =>
+    disabled &&
+    `
+    &:hover {
+      background: #eee;
+      box-shadow: none;
+    }
+  `}
+`
+
+export { Button, ButtonDanger, ButtonSuccess, ButtonDefault }
