@@ -11,27 +11,21 @@ export default function Home() {
       <Header />
       <main>
         <Container>
-          <div className="flex justify-center flex-col sm:flex-row py-10">
+          <div className="flex flex-col py-10">
             <Link
               href="/timer"
-              className="bg-amber-500 hover:bg-amber-600 ease-linear duration-300 text-white text-center rounded-lg px-8 py-4"
+              className="bg-indigo-50 hover:bg-indigo-100 ease-linear duration-300 text-gray-800 text-center rounded px-8 py-4 flex mt-4 items-center"
             >
-              <Timer
-                className="text-white mr-1"
-                style={{ fontSize: 'clamp(50px, 10vw, 100px)' }}
-              />
-              <p className="text-2xl md:text-4xl">Temporizador</p>
+              <Timer className="mr-2 text-2xl md:text-4xl" />
+              <p className="text-xl md:text-2xl">Temporizador</p>
             </Link>
 
             <Link
               href="/calculator"
-              className="bg-lime-500 hover:bg-lime-600 ease-linear duration-300 mt-4 sm:mt-0 sm:ml-8 text-white text-center rounded-lg px-8 py-4"
+              className="bg-indigo-50 hover:bg-indigo-100 ease-linear duration-300 text-gray-800 text-center rounded px-8 py-4 flex mt-4 items-center"
             >
-              <Calculate
-                className="text-white mr-1"
-                style={{ fontSize: 'clamp(50px, 10vw, 100px)' }}
-              />
-              <p className="text-2xl md:text-4xl">Caclculadora de horas</p>
+              <Calculate className="mr-2 text-2xl md:text-4xl" />
+              <p className="text-xl md:text-2xl">Horas trabalhadas</p>
             </Link>
           </div>
         </Container>
