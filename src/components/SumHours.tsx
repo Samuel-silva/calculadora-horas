@@ -32,6 +32,9 @@ export default function SumHours() {
   } = useIntervals(2, validation, setValidation, setIsRemoving)
   const { saveToStorage, getAllFromStorage } = useLocalStorage<CalculatorData>()
 
+  const disabledAdd = (): boolean => start.length > 4
+  const disabledRemove = (): boolean => start.length < 2
+
   const handleChange =
     (index: number, position: 'start' | 'finish') =>
     (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -76,9 +79,6 @@ export default function SumHours() {
     setTotal(toHours(totalMinutes))
   }, [start, finish, toMinutes, toHours, setInterval, setTotal])
 
-  const disabledAdd = (): boolean => start.length > 4
-  const disabledRemove = (): boolean => start.length < 2
-
   useEffect(() => {
     if (isRemoving && hasLoaded.current) {
       handleCalculate()
@@ -91,7 +91,6 @@ export default function SumHours() {
       hasLoaded.current = true
 
       const localStorate = getAllFromStorage('calculator')
-      console.log(localStorate)
       if (localStorate?.calculator) {
         setFinish(localStorate.calculator.finish)
         setStart(localStorate.calculator.start)

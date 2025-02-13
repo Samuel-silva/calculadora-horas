@@ -5,7 +5,7 @@ import BreadCrump from 'components/BreadCrump'
 import { Container } from 'styles/sharedstyles'
 
 export default function CalculatorPage() {
-  const titlePage = 'Calculadora de horas'
+  const titlePage = 'Jornada de trabalho'
   const subTitlePage = 'Horas trabalhadas'
 
   return (
@@ -15,7 +15,7 @@ export default function CalculatorPage() {
         <BreadCrump title={subTitlePage} />
         <Container>
           <h2 className="text-xl md:text-2xl xl:text-3xl font-semibold text-gray-700 pt-6 sm:pt-8">
-            Horas trabalhadas
+            {subTitlePage}
           </h2>
         </Container>
         <SumHours />

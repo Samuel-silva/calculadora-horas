@@ -2,16 +2,32 @@ import BreadCrump from 'components/BreadCrump'
 import Footer from 'layout/footer'
 import Header from 'layout/header'
 import Timer from 'components/Timer'
+import { Container } from 'styles/sharedstyles'
 
 export default function TimerPage() {
-  const titlePage = 'Temporizador'
+  const titlePage = 'Jornada de trabalho'
+  const subTitlePage = 'Temporizador'
 
   return (
     <>
       <Header title={titlePage} />
       <main>
-        <BreadCrump title={titlePage} />
+        <BreadCrump title={subTitlePage} />
+        <Container>
+          <h2 className="text-xl md:text-2xl xl:text-3xl font-semibold text-gray-700 pt-6 sm:pt-8">
+            {subTitlePage}
+          </h2>
+        </Container>
         <Timer />
+        <Container>
+          <p className="text-sm sm:text-base py-4 sm:py-6">
+            Nesta página, você pode calcular facilmente o total de horas
+            trabalhadas ao longo do dia. Basta inserir seus horários de entrada
+            e saída, incluindo até 5 intervalos, e o sistema fará o cálculo
+            automaticamente para você. Ideal para quem precisa acompanhar sua
+            jornada de trabalho com precisão e praticidade.
+          </p>
+        </Container>
       </main>
       <Footer />
     </>
